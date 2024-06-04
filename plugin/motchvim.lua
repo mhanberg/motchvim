@@ -2,7 +2,12 @@ _G.motchvim = {}
 
 vim.filetype.add({ filename = { Brewfile = "ruby", ["GRAPHITE_PR_DESCRIPTION.md"] = "octo" } })
 
-vim.cmd.colorscheme("kanagawa-dragon")
+local host = vim.fn.hostname()
+if host == "alt-mhanberg.localdomain" then
+	vim.cmd.colorscheme("kanagawa-wave")
+else
+	vim.cmd.colorscheme("kanagawa-dragon")
+end
 require("motchvim.autocmds")
 
 local opt = vim.opt

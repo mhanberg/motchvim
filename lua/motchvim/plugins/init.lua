@@ -6,6 +6,25 @@ end
 
 return {
 	{
+		"f-person/auto-dark-mode.nvim",
+		opts = {
+			update_interval = 1000,
+			set_dark_mode = function()
+				vim.opt.background = "dark"
+				local host = vim.fn.hostname()
+				if host == "alt-mhanberg.localdomain" then
+					vim.cmd.colorscheme("kanagawa-wave")
+				else
+					vim.cmd.colorscheme("kanagawa-dragon")
+				end
+			end,
+			set_light_mode = function()
+				vim.opt.background = "light"
+				vim.cmd.colorscheme("kanagawa-lotus")
+			end,
+		},
+	},
+	{
 		dir = "~/src/control-panel.nvim",
 		config = function()
 			-- local cp = require("control_panel")
