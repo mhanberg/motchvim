@@ -1,6 +1,7 @@
 _G.motchvim = {}
 
-vim.filetype.add({ filename = { Brewfile = "ruby", ["GRAPHITE_PR_DESCRIPTION.md"] = "octo" } })
+vim.treesitter.language.register("markdown", "octo")
+vim.filetype.add({ filename = { Brewfile = "ruby" } })
 
 local host = vim.fn.hostname()
 if host == "alt-mhanberg.localdomain" then
@@ -75,17 +76,12 @@ vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Go to the next item in the qu
 vim.keymap.set("n", "<leader><space>", function()
 	vim.cmd.set("hls!")
 end, { desc = "Toggle search highlight" })
-vim.keymap.set("n", "<leader>gr", ":grep<cr>", { desc = ":grep" })
--- vim.keymap.set("n", "<leader>c", ":botright copen 20<cr>", { desc = "Open quickfix" })
 
 vim.cmd([[tnoremap <esc> <C-\><C-n>]])
 
 vim.g.dispatch_handlers = { "job" }
 
 vim.g.zig_fmt_autosave = 0
-
-opt.grepprg = "ag --vimgrep -Q $*"
-opt.grepformat = "%f:%l:%c:%m"
 
 vim.g.markdown_syntax_conceal = 0
 
