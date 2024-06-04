@@ -7,7 +7,7 @@ My Neovim config, packaged as a lazy.nvim plugin.
 ```lua
 require("lazy").setup {
   spec = {
-    { dir = "mhanberg/motchvim", import = "motchvim.plugins" },
+    { "mhanberg/motchvim", import = "motchvim.plugins" },
   },
 }
 ```
