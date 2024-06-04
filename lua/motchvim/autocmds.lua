@@ -222,7 +222,3 @@ autocmd({ "BufRead", "BufNewFile" }, { group = random, pattern = "*.lexs", comma
 
 local clojure = augroup("clojure", { clear = true })
 autocmd("BufWritePost", { group = clojure, pattern = "*.clj", command = "silent Require" })
-
-local markdown = augroup("markdown", { clear = true })
-autocmd({ "BufRead", "BufNewFile" }, { group = markdown, pattern = "*.md", command = "setlocal spell" })
-autocmd({ "BufRead", "BufNewFile" }, { group = markdown, pattern = "*.md", command = "setlocal linebreak" })
