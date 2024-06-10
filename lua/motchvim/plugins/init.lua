@@ -616,7 +616,7 @@ return {
     "rebelot/kanagawa.nvim",
     opts = {
       background = {
-        dark = vim.fn.readfile(vim.fn.expand("~/.local/share/mitch/kanagawa.txt"))[1],
+        dark = "dragon",
         light = "lotus",
       },
       overrides = function(colors)
