@@ -154,10 +154,6 @@ return {
       end,
     },
     dependencies = {
-
-      "junegunn/fzf",
-      "junegunn/fzf.vim",
-
       "neovim/nvim-lspconfig",
     },
   },
