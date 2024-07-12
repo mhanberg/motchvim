@@ -5,7 +5,7 @@ vim.filetype.add { filename = { Brewfile = "ruby" } }
 
 local host = vim.fn.hostname()
 if host == "alt-mhanberg.localdomain" then
-  vim.cmd.colorscheme("kanagawa-wave")
+  -- vim.cmd.colorscheme("minischeme")
 else
   vim.cmd.colorscheme("kanagawa-dragon")
 end
