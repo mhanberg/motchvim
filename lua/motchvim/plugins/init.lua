@@ -782,36 +782,6 @@ return {
     end,
   },
   {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = {
-      options = { globalstatus = true, theme = "kanagawa" },
-      extensions = { "fzf" },
-      sections = {
-        lualine_c = { { "filename", path = 1 } },
-        lualine_x = {
-          {
-            "macro-recording",
-            fmt = function()
-              local recording_register = vim.fn.reg_recording()
-              if recording_register == "" then
-                return ""
-              else
-                return "recording @" .. recording_register
-              end
-            end,
-            color = { fg = "orange" },
-          },
-          "selectioncount",
-          "searchcount",
-          "encoding",
-          "fileformat",
-          "filetype",
-        },
-      },
-    },
-  },
-  {
     "nvim-lua/plenary.nvim",
     cmd = {
       "PlenaryBustedDirectory",
