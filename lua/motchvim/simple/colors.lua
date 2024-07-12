@@ -15,7 +15,7 @@ local theme = {
 return {
   base00 = theme.purple[900],
   base01 = theme.purple[800],
-  base02 = theme.purple[900],
+  base02 = theme.purple[700],
   base03 = theme.purple[400],
   base04 = theme.purple[300],
   base05 = theme.purple[200],
