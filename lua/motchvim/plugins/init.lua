@@ -154,6 +154,7 @@ return {
       end,
     },
     dependencies = {
+      "ibhagwan/fzf-lua",
       "neovim/nvim-lspconfig",
     },
   },
@@ -479,7 +480,6 @@ return {
     event = { "BufReadPost", "BufNewFile" },
   },
   { "nvim-telescope/telescope.nvim", cmd = { "Telescope" } },
-  { "tpope/vim-commentary", event = { "BufReadPost", "BufNewFile" } },
   { "tpope/vim-dispatch", event = "VeryLazy" },
   { "tpope/vim-eunuch", event = { "BufReadPost", "BufNewFile" } },
   { "tpope/vim-fugitive", event = "VeryLazy" },
