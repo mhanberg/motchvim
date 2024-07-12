@@ -1,11 +1,14 @@
-_G.motchvim = {}
+local host = vim.fn.hostname()
+
+_G.motchvim = {
+  work = host == "alt-mhanberg.localdomain",
+}
 
 vim.treesitter.language.register("markdown", "octo")
 vim.filetype.add { filename = { Brewfile = "ruby" } }
 
-local host = vim.fn.hostname()
-if host == "alt-mhanberg.localdomain" then
-  -- vim.cmd.colorscheme("minischeme")
+if motchvim.work == true then
+  require("motchvim.simple")
 else
   vim.cmd.colorscheme("kanagawa-dragon")
 end
