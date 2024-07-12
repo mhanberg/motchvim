@@ -90,14 +90,4 @@ return {
     end,
   },
   { "IndianBoy42/tree-sitter-just" },
-  {
-    "JoosepAlviste/nvim-ts-context-commentstring",
-    config = function()
-      require("ts_context_commentstring").setup {
-        languages = {
-          surface = [[<!--\ %s\ -->]],
-        },
-      }
-    end,
-  },
 }
