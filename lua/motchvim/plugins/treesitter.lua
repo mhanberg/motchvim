@@ -77,14 +77,13 @@ return {
 
     dependencies = {
       "nvim-treesitter/nvim-treesitter-textobjects",
-      -- "nvim-treesitter/nvim-treesitter-context",
       "nvim-treesitter/playground",
     },
   },
   {
     "nvim-treesitter/nvim-treesitter-context",
     lazy = true,
-    enabled = false,
+    enabled = true,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
       require("treesitter-context").setup()
