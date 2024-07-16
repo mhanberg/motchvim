@@ -48,11 +48,11 @@ autocmd("LspAttach", {
 
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, map_opts { desc = "Go to definition" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, map_opts { desc = "Show hover documentation" })
-    vim.keymap.set("n", "1gD", vim.lsp.buf.type_definition, map_opts { desc = "Go to type definition" })
+    vim.keymap.set("n", "gy", vim.lsp.buf.type_definition, map_opts { desc = "Go to type definition" })
     vim.keymap.set("n", "gr", fzf("lsp_references"), map_opts { desc = "Find references" })
     vim.keymap.set("n", "gi", fzf("lsp_implementations"), map_opts { desc = "Find implementations" })
-    vim.keymap.set("n", "g0", fzf("lsp_document_symbols"), map_opts { desc = "Document Symbols" })
-    vim.keymap.set("n", "g7", fzf("lsp_workspace_symbols"), map_opts { desc = "Workspace Symbols" })
+    vim.keymap.set("n", "<leader>ss", fzf("lsp_document_symbols"), map_opts { desc = "Document Symbols" })
+    vim.keymap.set("n", "<leader>sS", fzf("lsp_workspace_symbols"), map_opts { desc = "Workspace Symbols" })
     vim.keymap.set("n", "<leader>ca", fzf("lsp_code_actions", {}), map_opts { desc = "Code Actions" })
     vim.keymap.set(
       "n",

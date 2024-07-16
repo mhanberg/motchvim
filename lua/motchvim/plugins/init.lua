@@ -493,7 +493,7 @@ return {
     config = function()
       vim.keymap.set("n", "<leader>n", vim.cmd.TestNearest, { desc = "Run nearest test" })
       vim.keymap.set("n", "<leader>f", vim.cmd.TestFile, { desc = "Run test file" })
-      vim.keymap.set("n", "<leader>s", vim.cmd.TestSuite, { desc = "Run test suite" })
+      vim.keymap.set("n", "<leader>S", vim.cmd.TestSuite, { desc = "Run test suite" })
       vim.keymap.set("n", "<leader>l", vim.cmd.TestLast, { desc = "Run last test" })
 
       local vim_notify_notfier = function(cmd, exit)
