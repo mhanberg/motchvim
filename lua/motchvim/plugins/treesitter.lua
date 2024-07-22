@@ -86,7 +86,9 @@ return {
     enabled = true,
     event = { "BufReadPost", "BufNewFile" },
     config = function()
-      require("treesitter-context").setup()
+      require("treesitter-context").setup {
+        max_lines = 3,
+      }
     end,
   },
   { "IndianBoy42/tree-sitter-just" },
