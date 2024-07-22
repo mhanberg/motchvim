@@ -110,7 +110,7 @@ LSP.setup("lua_ls", {
     },
   },
 })
-LSP.setup("rust_analyzer", {})
+-- LSP.setup("rust_analyzer", {})
 LSP.setup("clangd", {})
 -- LSP.setup("solargraph", {})
 LSP.setup("omnisharp", {})
