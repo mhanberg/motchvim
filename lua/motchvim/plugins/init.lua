@@ -26,6 +26,7 @@ return {
   },
   {
     dir = "~/src/control-panel.nvim",
+    enable = false,
     config = function()
       -- local cp = require("control_panel")
       -- cp.register {
@@ -262,8 +263,6 @@ return {
     },
   },
   { "farmergreg/vim-lastplace", event = { "BufReadPre", "BufNewFile" } },
-  { "edluffy/hologram.nvim", ft = "markdown" },
-  -- Lua
   {
     "0oAstro/silicon.lua",
     opts = {
@@ -479,8 +478,6 @@ return {
     "neovim/nvim-lspconfig",
     event = { "BufReadPost", "BufNewFile" },
   },
-  { "nvim-telescope/telescope.nvim", cmd = { "Telescope" } },
-  { "tpope/vim-dispatch", event = "VeryLazy" },
   { "tpope/vim-eunuch", event = { "BufReadPost", "BufNewFile" } },
   { "tpope/vim-fugitive", event = "VeryLazy" },
   { "tpope/vim-projectionist", event = { "BufReadPost", "BufNewFile" } },
@@ -577,40 +574,6 @@ return {
     end,
     dependencies = { "nvim-lua/plenary.nvim" },
   },
-  {
-    "lukas-reineke/indent-blankline.nvim",
-    enabled = false,
-    event = { "BufReadPost", "BufNewFile" },
-    name = "indent_blankline",
-    init = function()
-      vim.opt.list = true
-    end,
-    opts = {
-      scope = {
-        enabled = false,
-      },
-      exclude = {
-        filetypes = {
-          "markdown",
-          "help",
-          "man",
-          "gitcommit",
-          "terminal",
-          "json",
-          "lspinfo",
-          "packer",
-          "checkhealth",
-          "help",
-          "lazy",
-          "",
-        },
-      },
-    },
-
-    config = function(_, opts)
-      require("ibl").setup(opts)
-    end,
-  },
   { "mg979/vim-visual-multi", branch = "master", event = { "BufReadPost", "BufNewFile" } },
   {
     "rebelot/kanagawa.nvim",
@@ -652,57 +615,6 @@ return {
       require("kanagawa").setup(opts)
     end,
   },
-  -- {
-  --   "echasnovski/mini.clue",
-  --   version = false,
-  --   config = function()
-  --     local miniclue = require("mini.clue")
-  --     miniclue.setup {
-  --       triggers = {
-  --         -- Leader triggers
-  --         { mode = "n", keys = "<Leader>" },
-  --         { mode = "n", keys = "<space>" },
-  --         { mode = "x", keys = "<Leader>" },
-
-  --         -- Built-in completion
-  --         { mode = "i", keys = "<C-x>" },
-
-  --         -- `g` key
-  --         { mode = "n", keys = "g" },
-  --         { mode = "x", keys = "g" },
-
-  --         -- Marks
-  --         { mode = "n", keys = "'" },
-  --         { mode = "n", keys = "`" },
-  --         { mode = "x", keys = "'" },
-  --         { mode = "x", keys = "`" },
-
-  --         -- Registers
-  --         { mode = "n", keys = '"' },
-  --         { mode = "x", keys = '"' },
-  --         { mode = "i", keys = "<C-r>" },
-  --         { mode = "c", keys = "<C-r>" },
-
-  --         -- Window commands
-  --         { mode = "n", keys = "<C-w>" },
-
-  --         -- `z` key
-  --         { mode = "n", keys = "z" },
-  --         { mode = "x", keys = "z" },
-  --       },
-
-  --       clues = {
-  --         -- Enhance this by adding descriptions for <Leader> mapping groups
-  --         miniclue.gen_clues.builtin_completion(),
-  --         miniclue.gen_clues.g(),
-  --         miniclue.gen_clues.marks(),
-  --         miniclue.gen_clues.registers(),
-  --         miniclue.gen_clues.windows(),
-  --         miniclue.gen_clues.z(),
-  --       },
-  --     }
-  --   end,
-  -- },
   {
     "echasnovski/mini.nvim",
     event = { "VimEnter", "BufReadPost", "BufNewFile" },
@@ -715,28 +627,6 @@ return {
           hex_color = hipatterns.gen_highlighter.hex_color(),
         },
       }
-
-      -- require("mini.base16").setup {
-      --   palette = {
-      --     base00 = "#000000",
-      --     base01 = "#6928FF",
-      --     base02 = "#FFFFFF",
-      --     base03 = "#8691a7",
-      --     base04 = "#150044",
-      --     base05 = "#e2e98f",
-      --     base06 = "#eff69c",
-      --     base07 = "#fcffaa",
-      --     base08 = "#ffcfa0",
-      --     base09 = "#cc7e46",
-      --     base0A = "#46a436",
-      --     base0B = "#9ff895",
-      --     base0C = "#ca6ecf",
-      --     base0D = "#42f7ff",
-      --     base0E = "#ffc4ff",
-      --     base0F = "#00a5c5",
-      --   },
-      --   use_cterm = true,
-      -- }
 
       local fzflua = function()
         return function()
@@ -800,64 +690,9 @@ return {
   },
   { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
   {
-    "simrat39/symbols-outline.nvim",
-    config = function()
-      require("symbols-outline").setup {
-        symbols = {
-          File = { icon = "󰈔", hl = "@text.uri" },
-          Module = { icon = "󰆧", hl = "@namespace" },
-          Namespace = { icon = "󰅪", hl = "@namespace" },
-          Package = { icon = "󰏗", hl = "@namespace" },
-          Class = { icon = "𝓒", hl = "@type" },
-          Method = { icon = "ƒ", hl = "@method" },
-          Property = { icon = "", hl = "@method" },
-          Field = { icon = "󰆨", hl = "@field" },
-          Constructor = { icon = "", hl = "@constructor" },
-          Enum = { icon = "ℰ", hl = "@type" },
-          Interface = { icon = "󰜰", hl = "@type" },
-          Function = { icon = "", hl = "@function" },
-          Variable = { icon = "", hl = "@constant" },
-          Constant = { icon = "", hl = "@constant" },
-          String = { icon = "𝓐", hl = "@string" },
-          Number = { icon = "#", hl = "@number" },
-          Boolean = { icon = "⊨", hl = "@boolean" },
-          Array = { icon = "󰅪", hl = "@constant" },
-          Object = { icon = "⦿", hl = "@type" },
-          Key = { icon = "🔐", hl = "@type" },
-          Null = { icon = "NULL", hl = "@type" },
-          EnumMember = { icon = "", hl = "@field" },
-          Struct = { icon = "𝓢", hl = "@type" },
-          Event = { icon = "🗲", hl = "@type" },
-          Operator = { icon = "+", hl = "@operator" },
-          TypeParameter = { icon = "𝙏", hl = "@parameter" },
-          Component = { icon = "󰅴", hl = "@function" },
-          Fragment = { icon = "󰅴", hl = "@constant" },
-        },
-      }
-    end,
-  },
-  {
-    "akinsho/flutter-tools.nvim",
-    lazy = false,
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "stevearc/dressing.nvim", -- optional for vim.ui.select
-    },
-    config = function()
-      require("flutter-tools").setup {} -- use defaults
-    end,
-  },
-  {
     "mhanberg/workspace-folder.nvim",
     dir = "~/src/workspace-folders.nvim",
     lazy = false,
-  },
-  {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    dependencies = {
-      "neovim/nvim-lspconfig",
-    },
   },
   {
     "SmiteshP/nvim-navic",
@@ -953,6 +788,16 @@ return {
     config = function()
       require("grug-far").setup {}
     end,
+    cmd = {
+      "GrugFar",
+    },
+    keys = {
+      {
+        "<space>fr",
+        ":GrugFar<cr>",
+        desc = "GrugFar",
+      },
+    },
   },
   {
     "mrcjkb/rustaceanvim",

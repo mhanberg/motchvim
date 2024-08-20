@@ -8,7 +8,8 @@ vim.treesitter.language.register("markdown", "octo")
 vim.filetype.add { filename = { Brewfile = "ruby" } }
 
 if motchvim.work == true then
-  require("motchvim.simple")
+  -- require("motchvim.simple")
+  vim.cmd.colorscheme("kanagawa-wave")
 else
   vim.cmd.colorscheme("kanagawa-dragon")
 end
@@ -20,6 +21,8 @@ vim.env.WALLABY_DRIVER = "chrome"
 vim.env.BAT_STYLE = "header,grid,numbers"
 
 vim.cmd([[set shortmess+="C,c"]])
+
+vim.g.maplocalleader = ","
 
 opt.timeoutlen = 500
 
