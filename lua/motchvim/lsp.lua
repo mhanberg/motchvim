@@ -75,7 +75,7 @@ vim.lsp.handlers["window/showMessage"] = function(_, result)
 end
 
 M.default_config = function(name)
-  return require("lspconfig.server_configurations." .. name).default_config
+  return require("lspconfig.configs." .. name).default_config
 end
 
 vim.lsp.set_log_level(2)

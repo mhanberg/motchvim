@@ -1,7 +1,7 @@
 local host = vim.fn.hostname()
 
 _G.motchvim = {
-  work = host == "alt-mhanberg.localdomain",
+  work = host == "alt-mhanberg",
 }
 
 vim.treesitter.language.register("markdown", "octo")
@@ -117,7 +117,7 @@ LSP.setup("lua_ls", {
 LSP.setup("clangd", {})
 -- LSP.setup("solargraph", {})
 LSP.setup("omnisharp", {})
-LSP.setup("tsserver", {})
+LSP.setup("ts_ls", {})
 -- LSP.setup("vimls", {})
 LSP.setup("bashls", {})
 -- LSP.setup("sourcekit", {})
