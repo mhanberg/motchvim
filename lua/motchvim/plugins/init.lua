@@ -182,7 +182,8 @@ return {
     end,
   },
   {
-    "hrsh7th/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
+    name = "nvim-cmp", -- Otherwise highlighting gets messed up
     lazy = true,
     event = "InsertEnter",
     init = function()
@@ -243,12 +244,10 @@ return {
       })
     end,
     dependencies = {
-      { "hrsh7th/cmp-cmdline", event = { "CmdlineEnter" } },
+      { "iguanacucumber/mag-cmdline", name = "cmp-cmdline", event = { "CmdlineEnter" } },
       "f3fora/cmp-spell",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-emoji",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
+      { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+      "https://codeberg.org/FelipeLema/cmp-async-path",
       "hrsh7th/cmp-vsnip",
       "hrsh7th/vim-vsnip",
 

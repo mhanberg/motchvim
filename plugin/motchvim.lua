@@ -8,7 +8,6 @@ vim.treesitter.language.register("markdown", "octo")
 vim.filetype.add { filename = { Brewfile = "ruby" } }
 
 if motchvim.work == true then
-  -- require("motchvim.simple")
   vim.cmd.colorscheme("kanagawa-wave")
 else
   vim.cmd.colorscheme("kanagawa-dragon")
