@@ -36,6 +36,7 @@ opt.fillchars:append {
   verthoriz = "╋",
 }
 
+opt.swapfile = false
 opt.colorcolumn = "999"
 opt.guifont = "JetBrains Mono"
 opt.tabstop = 2
@@ -176,7 +177,7 @@ LSP.setup(
 
         experimental = {
           classRegex = {
-            [[class: "([^"]*)]],
+            [[class:\s*"([^"]*)]],
           },
         },
       },
