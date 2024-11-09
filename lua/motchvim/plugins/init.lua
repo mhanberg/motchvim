@@ -6,25 +6,6 @@ end
 
 return {
   {
-    "f-person/auto-dark-mode.nvim",
-    opts = {
-      update_interval = 1000,
-      set_dark_mode = function()
-        vim.opt.background = "dark"
-        local host = vim.fn.hostname()
-        if host == "alt-mhanberg.localdomain" then
-          vim.cmd.colorscheme("kanagawa-wave")
-        else
-          vim.cmd.colorscheme("kanagawa-dragon")
-        end
-      end,
-      set_light_mode = function()
-        vim.opt.background = "light"
-        vim.cmd.colorscheme("kanagawa-lotus")
-      end,
-    },
-  },
-  {
     dir = "~/src/control-panel.nvim",
     enable = false,
     config = function()
@@ -396,38 +377,6 @@ return {
             ["alt-l"] = actions.file_sel_to_ll,
           },
         },
-        lsp = {
-          symbols = {
-            symbol_icons = {
-              File = "󰈙",
-              Module = "",
-              Namespace = "󰦮",
-              Package = "",
-              Class = "󰆧",
-              Method = "󰊕",
-              Property = "",
-              Field = "",
-              Constructor = "",
-              Enum = "",
-              Interface = "",
-              Function = "󰊕",
-              Variable = "󰀫",
-              Constant = "󰏿",
-              String = "",
-              Number = "󰎠",
-              Boolean = "󰨙",
-              Array = "󱡠",
-              Object = "",
-              Key = "󰌋",
-              Null = "󰟢",
-              EnumMember = "",
-              Struct = "󰆼",
-              Event = "",
-              Operator = "󰆕",
-              TypeParameter = "󰗴",
-            },
-          },
-        },
       }
     end,
     keys = {
@@ -575,6 +524,15 @@ return {
   },
   { "mg979/vim-visual-multi", branch = "master", event = { "BufReadPost", "BufNewFile" } },
   {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    config = function()
+      require("rose-pine").setup {
+        variant = "dawn",
+      }
+    end,
+  },
+  {
     "rebelot/kanagawa.nvim",
     opts = {
       background = {
@@ -638,7 +596,7 @@ return {
 
       local header
 
-      if vim.fn.hostname() == "alt-mhanberg.localdomain" then
+      if motchvim.work then
         header = [[
        @@@@@@ @@@ @@@@@@@@@@  @@@@@@@  @@@      @@@@@@@@ @@@@@@@  @@@@@@@@ @@@@@@@
       !@@     @@! @@! @@! @@! @@!  @@@ @@!      @@!      @@!  @@@ @@!        @@!  

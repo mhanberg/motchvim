@@ -7,11 +7,8 @@ _G.motchvim = {
 vim.treesitter.language.register("markdown", "octo")
 vim.filetype.add { filename = { Brewfile = "ruby" } }
 
-if motchvim.work == true then
-  vim.cmd.colorscheme("kanagawa-wave")
-else
-  vim.cmd.colorscheme("kanagawa-dragon")
-end
+local theme_file = vim.fn.expand("~/.motchvim-theme")
+vim.cmd.colorscheme(vim.trim(table.concat(vim.fn.readfile(theme_file, "\n"))))
 require("motchvim.autocmds")
 
 local opt = vim.opt
