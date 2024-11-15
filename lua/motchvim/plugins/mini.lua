@@ -28,7 +28,7 @@ local starter = function()
 
   local header
 
-  if vim.fn.hostname() == "alt-mhanberg.localdomain" then
+  if motchvim.work then
     header = [[
        @@@@@@ @@@ @@@@@@@@@@  @@@@@@@  @@@      @@@@@@@@ @@@@@@@  @@@@@@@@ @@@@@@@
       !@@     @@! @@! @@! @@! @@!  @@@ @@!      @@!      @@!  @@@ @@!        @@!  

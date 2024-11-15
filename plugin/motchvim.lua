@@ -1,20 +1,21 @@
 local host = vim.fn.hostname()
 
+local theme_file = vim.fn.expand("~/.motchvim-theme")
+
 _G.motchvim = {
   work = host == "alt-mhanberg",
+  theme = vim.trim(table.concat(vim.fn.readfile(theme_file, "\n"))),
 }
 
 vim.treesitter.language.register("markdown", "octo")
 vim.filetype.add { filename = { Brewfile = "ruby" } }
 
-local theme_file = vim.fn.expand("~/.motchvim-theme")
-vim.cmd.colorscheme(vim.trim(table.concat(vim.fn.readfile(theme_file, "\n"))))
+vim.cmd.colorscheme(motchvim.theme)
 require("motchvim.autocmds")
 
 local opt = vim.opt
 
 vim.env.WALLABY_DRIVER = "chrome"
-vim.env.BAT_STYLE = "header,grid,numbers"
 
 vim.cmd([[set shortmess+="C,c"]])
 
@@ -26,6 +27,18 @@ opt.scrolloff = 4
 opt.laststatus = 3
 opt.winbar = [[%m %t %{%v:lua.require'motchvim.lsp'.navic()%}]]
 
+opt.foldcolumn = "1"
+opt.foldlevelstart = 99
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+opt.foldtext = ""
+opt.foldmethod = "expr"
+opt.mousemodel = "extend"
+opt.fillchars:append {
+  fold = " ",
+  foldopen = "",
+  foldsep = " ",
+  foldclose = "",
+}
 opt.fillchars:append {
   horiz = "━",
   horizup = "┻",

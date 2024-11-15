@@ -1,149 +1,22 @@
-local fzf = function(func)
-  return function(...)
-    return require("fzf-lua")[func](...)
-  end
-end
+local theme_file = vim.fn.expand("~/.motchvim-theme")
+local theme = vim.trim(table.concat(vim.fn.readfile(theme_file, "\n")))
 
 return {
   {
-    dir = "~/src/control-panel.nvim",
-    enable = false,
-    config = function()
-      -- local cp = require("control_panel")
-      -- cp.register {
-      --   id = "output-panel",
-      --   title = "Output Panel",
-      -- }
-
-      -- local handler = vim.lsp.handlers["window/logMessage"]
-
-      -- vim.lsp.handlers["window/logMessage"] = function(err, result, context)
-      --   handler(err, result, context)
-      --   if not err then
-      --     local client_id = context.client_id
-      --     local client = vim.lsp.get_client_by_id(client_id)
-
-      --     if not cp.panel("output-panel"):has_tab(client.name) then
-      --       cp.panel("output-panel")
-      --         :tab { name = client.name, key = tostring(#cp.panel("output-panel"):tabs() + 1) }
-      --     end
-
-      --     cp.panel("output-panel"):append {
-      --       tab = client.name,
-      --       text = "[" .. vim.lsp.protocol.MessageType[result.type] .. "] " .. result.message,
-      --     }
-      --   end
-      -- end
-    end,
-  },
-  {
-    "mhanberg/output-panel.nvim",
-    enable = false,
-    event = "VeryLazy",
-    -- dev = true,
-    config = function()
-      require("output_panel").setup()
-    end,
-    keys = {
-      {
-        "<leader>o",
-        vim.cmd.OutputPanel,
-        mode = "n",
-        desc = "Toggle the output panel",
-      },
-    },
-  },
-  {
-    "luukvbaal/statuscol.nvim",
-    event = { "BufReadPost", "BufNewFile" },
-    init = function()
-      vim.opt.foldcolumn = "1"
-      vim.opt.foldlevelstart = 99
-      vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-      vim.opt.foldtext = ""
-      vim.opt.foldmethod = "expr"
-      vim.opt.mousemodel = "extend"
-      vim.opt.fillchars:append {
-        fold = " ",
-        foldopen = "",
-        foldsep = " ",
-        foldclose = "",
-      }
-    end,
-    config = function()
-      local builtin = require("statuscol.builtin")
-      require("statuscol").setup {
-        setopt = true,
-        foldfunc = "builtin",
-        segments = {
-          { text = { builtin.lnumfunc }, click = "v:lua.ScLa" },
-          { text = { "%s" }, click = "v:lua.ScSa" },
-          { text = { builtin.foldfunc, " " }, condition = { true, builtin.not_empty }, click = "v:lua.ScFa" },
-        },
-      }
-    end,
-    dependencies = {
-      "lewis6991/gitsigns.nvim",
-    },
-  },
-  {
-    "mhanberg/zk.nvim",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function(_, opts)
-      require("zk").setup(opts)
-    end,
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
     opts = {
-      filetypes = { "markdown", "liquid" },
-      on_attach = function(_, bufnr)
-        local opts = function(tbl)
-          return vim.tbl_extend("keep", { buffer = bufnr, silent = true }, tbl)
-        end
-
-        vim.keymap.set("n", "<space>zf", vim.cmd.Notes, opts { desc = "Find notes" })
-        vim.keymap.set("n", "<space>zt", vim.cmd.Tags, opts { desc = "Find tags" })
-        vim.keymap.set("n", "<space>zl", vim.cmd.Links, opts { desc = "Find links in note" })
-        vim.keymap.set("n", "<space>zb", vim.cmd.Backlinks, opts { desc = "Find backlinks in note" })
-        vim.keymap.set(
-          "n",
-          "<space>zd",
-          [[:lua require("zk").new({group = "daily", dir = "journal/daily"})<cr>]],
-          opts { desc = "New Journal Entry" }
-        )
-        vim.keymap.set("v", "<space>zn", function()
-          vim.lsp.buf.code_action {
-            apply = true,
-            filter = function(ca)
-              return ca.title == [[New note in top directory]]
-            end,
-          }
-        end, opts { desc = "Create and link note from selection" })
-
-        if vim.fn.expand("%:h") == "dnd" then
-          require("motchvim.dnd")
-          vim.keymap.set(
-            "n",
-            "<A-j>",
-            [[:lua motchvim.dnd.move_to("previous")<cr>]],
-            opts { desc = "Previous D&D note" }
-          )
-          vim.keymap.set(
-            "n",
-            "<A-k>",
-            [[:lua motchvim.dnd.move_to("next")<cr>]],
-            opts { desc = "Next D&D note" }
-          )
-        end
-      end,
-    },
-    dependencies = {
-      "ibhagwan/fzf-lua",
-      "neovim/nvim-lspconfig",
+      bigfile = { enabled = true },
+      statuscolumn = {
+        enabled = true,
+        folds = { open = true },
+      },
     },
   },
   { "ruanyl/vim-gh-line", event = { "BufReadPost", "BufNewFile" } },
   { "alvan/vim-closetag", ft = { "html", "liquid", "javascriptreact", "typescriptreact" } },
   { "christoomey/vim-tmux-navigator", event = "VeryLazy" },
-  { "christoomey/vim-tmux-runner", event = { "BufReadPost", "BufNewFile" } },
   {
     "stevearc/conform.nvim",
     opts = {},
@@ -163,252 +36,19 @@ return {
     end,
   },
   {
-    "iguanacucumber/magazine.nvim",
-    name = "nvim-cmp", -- Otherwise highlighting gets messed up
-    lazy = true,
-    event = "InsertEnter",
-    init = function()
-      vim.opt.completeopt = { "menu", "menuone", "noselect" }
-    end,
-    config = function()
-      local cmp = require("cmp")
-
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            -- For `vsnip` user.
-            vim.fn["vsnip#anonymous"](args.body)
-          end,
-        },
-        window = {
-          completion = cmp.config.window.bordered(),
-          documentation = cmp.config.window.bordered(),
-        },
-        mapping = cmp.mapping.preset.insert {
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.close(),
-          ["<C-y>"] = cmp.mapping.confirm { select = true },
-        },
-        sources = {
-          { name = "lazydev" },
-          { name = "nvim_lsp" },
-          { name = "vsnip" },
-          { name = "vim-dadbod-completion" },
-          { name = "spell", keyword_length = 5 },
-          -- { name = "rg", keyword_length = 3 },
-          -- { name = "buffer", keyword_length = 3 },
-          -- { name = "emoji" },
-          { name = "path" },
-          { name = "git" },
-        },
-        formatting = {
-          format = require("lspkind").cmp_format {
-            with_text = true,
-            menu = {
-              buffer = "[Buffer]",
-              nvim_lsp = "[LSP]",
-              luasnip = "[LuaSnip]",
-              -- emoji = "[Emoji]",
-              spell = "[Spell]",
-              path = "[Path]",
-              cmdline = "[Cmd]",
-            },
-          },
-        },
-      }
-
-      cmp.setup.cmdline(":", {
-        mapping = cmp.mapping.preset.cmdline(),
-        sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline", keyword_length = 2 } }),
-      })
-    end,
-    dependencies = {
-      { "iguanacucumber/mag-cmdline", name = "cmp-cmdline", event = { "CmdlineEnter" } },
-      "f3fora/cmp-spell",
-      { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
-      "https://codeberg.org/FelipeLema/cmp-async-path",
-      "hrsh7th/cmp-vsnip",
-      "hrsh7th/vim-vsnip",
-
-      "onsails/lspkind-nvim",
-      {
-        "petertriho/cmp-git",
-        config = function()
-          require("cmp_git").setup()
-        end,
-        dependencies = { "nvim-lua/plenary.nvim" },
+    "AlejandroSuero/freeze-code.nvim",
+    opts = {
+      copy = true, -- copy after screenshot option
+      freeze_config = { -- configuration options for `freeze` command
+        output = "freeze.png",
+        theme = theme,
       },
     },
+    config = function(_, opts)
+      require("freeze-code").setup(opts)
+    end,
   },
   { "farmergreg/vim-lastplace", event = { "BufReadPre", "BufNewFile" } },
-  {
-    "0oAstro/silicon.lua",
-    opts = {
-      font = "Hack",
-      lineNumber = false,
-      padHoriz = 60, -- Horizontal padding
-      padVert = 40, -- vertical padding
-      -- bgColor = "#56716F",
-      -- bgImage = vim.fs.joinpath(vim.env.ICLOUD, "/code-snippet-background.png"),
-      -- bgImage = "/Users/mitchell/Downloads/robert-anasch-u6AQYn1tMSE-unsplash.jpg",
-      -- bgImage = "/Users/mitchell/Downloads/engin-akyurt-HEMIBJ8QQuA-unsplash.jpg",
-      -- bgImage = "/Users/mitchell/Downloads/sincerely-media-K5OLjMlPe4U-unsplash.jpg",
-      bgImage = "/Users/mitchell/Downloads/luke-chesser-pJadQetzTkI-unsplash.jpg",
-      shadowBlurRadius = 0,
-      -- theme = "/Users/mitchell/.config/silicon/themes/Everforest Dark.tmTheme",
-    },
-    keys = {
-      {
-        "<space>ss",
-        function()
-          require("silicon").visualise_api {}
-        end,
-        mode = "v",
-        desc = "Take a silicon code snippet",
-      },
-      {
-        "<space>sc",
-        function()
-          require("silicon").visualise_api { to_clip = true }
-        end,
-        mode = "v",
-        desc = "Take a silicon code snippet into the clipboard",
-      },
-    },
-    dependencies = { "nvim-lua/plenary.nvim" },
-  },
-  {
-    "folke/noice.nvim",
-    version = "*",
-    event = "VeryLazy",
-    opts = {
-      cmdline = {
-        enabled = true, -- disable if you use native command line UI
-        view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
-        opts = {
-          buf_options = { filetype = "vim" },
-          border = {
-            style = { " ", " ", " ", " ", " ", " ", " ", " " },
-          },
-        }, -- enable syntax highlighting in the cmdline
-        icons = {
-          ["/"] = { icon = " " },
-          ["?"] = { icon = " " },
-          [":"] = { icon = ":", firstc = false },
-        },
-      },
-      messages = {
-        backend = "mini",
-      },
-      notify = {
-        backend = "mini",
-      },
-      lsp = {
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-        message = {
-          enabled = false,
-          view = "mini",
-        },
-      },
-      views = {
-        cmdline_popup = {
-          position = {
-            row = 1,
-            col = "50%",
-          },
-        },
-      },
-      routes = {
-        {
-          filter = {
-            event = "msg_show",
-            kind = "search_count",
-          },
-          opts = { skip = true },
-        },
-        {
-          filter = {
-            event = "msg_show",
-            kind = "",
-            find = "written",
-          },
-          opts = { skip = true },
-        },
-        {
-          filter = { find = "Scanning" },
-          opts = { skip = true },
-        },
-      },
-    },
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-    },
-  },
-  {
-    "ibhagwan/fzf-lua",
-    ft = "starter",
-    cmd = { "FzfLua" },
-    -- optional for icon support
-    dependencies = {
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      local actions = require("fzf-lua.actions")
-      require("fzf-lua").setup {
-        winopts = {
-          height = 0.6, -- window height
-          width = 0.9,
-          row = 0, -- window row position (0=top, 1=bottom)
-        },
-        actions = {
-          files = {
-            ["default"] = actions.file_edit_or_qf,
-            ["ctrl-x"] = actions.file_split,
-            ["ctrl-v"] = actions.file_vsplit,
-            ["ctrl-t"] = actions.file_tabedit,
-            ["alt-q"] = actions.file_sel_to_qf,
-            ["alt-l"] = actions.file_sel_to_ll,
-          },
-        },
-      }
-    end,
-    keys = {
-      { "<c-p>", fzf("files"), desc = "Find files" },
-      { "<space>p", fzf("git_status"), desc = "Find of changes files" },
-      {
-        "<space>vp",
-        function()
-          fzf("files") { cwd = vim.fn.expand("~/.local/share/nvim/lazy") }
-        end,
-        desc = "Find files of vim plugins",
-      },
-      -- { "<space>df", "<cmd>Files ~/src/<cr>", desc = "Find files in all projects" },
-      { "gl", fzf("blines"), desc = "FZF Buffer Lines" },
-      { "<leader>a", fzf("live_grep"), desc = "Search in project" },
-      -- { "<space>a", ":GlobalProjectSearch<cr>", desc = "Search in all projects" },
-    },
-  },
-  {
-    event = "VeryLazy",
-    "stevearc/dressing.nvim",
-    config = function()
-      require("dressing").setup {
-        select = {
-          backend = {
-            -- "telescope",
-            "fzf-lua",
-          },
-        },
-      }
-    end,
-  },
   {
     "tpope/vim-dadbod",
     cmd = { "DB", "DBUI" },
@@ -524,118 +164,6 @@ return {
   },
   { "mg979/vim-visual-multi", branch = "master", event = { "BufReadPost", "BufNewFile" } },
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    config = function()
-      require("rose-pine").setup {
-        variant = "dawn",
-      }
-    end,
-  },
-  {
-    "rebelot/kanagawa.nvim",
-    opts = {
-      background = {
-        dark = "dragon",
-        light = "lotus",
-      },
-      overrides = function(colors)
-        local theme = colors.theme
-        return {
-          NormalFloat = { bg = "none" },
-          FloatBorder = { bg = "none" },
-          FloatTitle = { bg = "none" },
-
-          -- Save an hlgroup with dark background and dimmed foreground
-          -- so that you can use it where your still want darker windows.
-          -- E.g.: autocmd TermOpen * setlocal winhighlight=Normal:NormalDark
-          NormalDark = { fg = theme.ui.fg_dim, bg = theme.ui.bg_m3 },
-
-          -- Popular plugins that open floats will link to NormalFloat by default;
-          -- set their background accordingly if you wish to keep them dark and borderless
-          LazyNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-
-          NoiceCmdlinePopup = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-          NoiceCmdlinePopupBorder = { bg = theme.ui.bg_m3, fg = theme.diag.info },
-          NoiceCmdlinePopupTitle = { bg = theme.ui.bg_m3, fg = theme.diag.info },
-          NoiceCmdlinePopupPrompt = { bg = theme.ui.bg_m3, fg = theme.diag.info },
-          NoiceCmdlinePopupBorderSearch = { bg = theme.ui.bg_m3, fg = theme.diag.warning },
-
-          NoiceCmdlineIcon = { bg = theme.ui.bg_m3, fg = theme.diag.info },
-          NoiceCmdlineIconSearch = { bg = theme.ui.bg_m3, fg = theme.diag.warning },
-
-          MasonNormal = { bg = theme.ui.bg_m3, fg = theme.ui.fg_dim },
-        }
-      end,
-    },
-    config = function(_, opts)
-      require("kanagawa").setup(opts)
-    end,
-  },
-  {
-    "echasnovski/mini.nvim",
-    event = { "VimEnter", "BufReadPost", "BufNewFile" },
-    version = "*",
-    config = function()
-      local hipatterns = require("mini.hipatterns")
-      hipatterns.setup {
-        highlighters = {
-          -- Highlight hex color strings (`#rrggbb`) using that color
-          hex_color = hipatterns.gen_highlighter.hex_color(),
-        },
-      }
-
-      local fzflua = function()
-        return function()
-          return {
-            { action = "FzfLua files", name = "Find File", section = "Files" },
-            { action = "Neotree", name = "Neotree", section = "Files" },
-          }
-        end
-      end
-
-      local header
-
-      if motchvim.work then
-        header = [[
-       @@@@@@ @@@ @@@@@@@@@@  @@@@@@@  @@@      @@@@@@@@ @@@@@@@  @@@@@@@@ @@@@@@@
-      !@@     @@! @@! @@! @@! @@!  @@@ @@!      @@!      @@!  @@@ @@!        @@!  
-       !@@!!  !!@ @!! !!@ @!@ @!@@!@!  @!!      @!!!:!   @!@!@!@  @!!!:!     @!!  
-          !:! !!: !!:     !!: !!:      !!:      !!:      !!:  !!! !!:        !!:  
-      ::.: :  :    :      :    :       : ::.: : : :: ::: :: : ::  : :: :::    :   
-      ]]
-      else
-        header = [[
-				@@@@@@@@@@    @@@@@@   @@@@@@@   @@@@@@@  @@@  @@@  @@@  @@@  @@@  @@@@@@@@@@
-				@@@@@@@@@@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@  @@@  @@@  @@@  @@@  @@@@@@@@@@@
-				@@! @@! @@!  @@!  @@@    @@!    !@@       @@!  @@@  @@!  @@@  @@!  @@! @@! @@!
-				!@! !@! !@!  !@!  @!@    !@!    !@!       !@!  @!@  !@!  @!@  !@!  !@! !@! !@!
-				@!! !!@ @!@  @!@  !@!    @!!    !@!       @!@!@!@!  @!@  !@!  !!@  @!! !!@ @!@
-				!@!   ! !@!  !@!  !!!    !!!    !!!       !!!@!!!!  !@!  !!!  !!!  !@!   ! !@!
-				!!:     !!:  !!:  !!!    !!:    :!!       !!:  !!!  :!:  !!:  !!:  !!:     !!:
-				:!:     :!:  :!:  !:!    :!:    :!:       :!:  !:!   ::!!:!   :!:  :!:     :!:
-				:::     ::   ::::: ::     ::     ::: :::  ::   :::    ::::     ::  :::     :: 
-				 :      :     : :  :      :      :: :: :   :   : :     :      :     :      :  
-      ]]
-      end
-      local starter = require("mini.starter")
-      starter.setup {
-        header = header,
-        items = { fzflua },
-        content_hooks = {
-          starter.gen_hook.aligning("center", "center"),
-        },
-      }
-    end,
-  },
-  {
-    "nvim-lua/plenary.nvim",
-    cmd = {
-      "PlenaryBustedDirectory",
-      "PlenaryBustedFile",
-    },
-  },
-  {
     "folke/lazydev.nvim",
     opts = {
       library = {
@@ -646,11 +174,6 @@ return {
     },
   },
   { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-  {
-    "mhanberg/workspace-folder.nvim",
-    dir = "~/src/workspace-folders.nvim",
-    lazy = false,
-  },
   {
     "SmiteshP/nvim-navic",
     -- dir = "~/src/nvim-navic",
@@ -726,9 +249,6 @@ return {
     event = "VeryLazy",
     opts = {
       preset = "helix",
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
     },
     keys = {
       {
