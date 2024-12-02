@@ -221,11 +221,29 @@ return {
           id = "close-on-enter",
         },
       },
+      sources = {
+        -- default sources
+        "filesystem",
+        "buffers",
+        "git_status",
+        -- user sources goes here
+        "zk",
+      },
+      -- ...
+      zk = {
+        follow_current_file = true,
+        window = {
+          mappings = {
+            ["n"] = "change_query",
+          },
+        },
+      },
     },
     config = function(_, opts)
       require("neo-tree").setup(opts)
     end,
     dependencies = {
+      "zk-org/neo-tree-zk.nvim",
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
       "MunifTanjim/nui.nvim",
@@ -237,7 +255,11 @@ return {
       {
         "-",
         function()
-          vim.cmd.Neotree("reveal", "toggle=true", "position=current")
+          if require("zk.util").notebook_root(vim.fn.expand("%:p")) ~= nil then
+            vim.cmd.Neotree("reveal", "source=zk", "toggle=true", "position=current")
+          else
+            vim.cmd.Neotree("reveal", "toggle=true", "position=current")
+          end
         end,
         mode = "n",
         desc = "Toggle Neotree",
