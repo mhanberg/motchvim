@@ -2,18 +2,6 @@ local theme_file = vim.fn.expand("~/.motchvim-theme")
 local theme = vim.trim(table.concat(vim.fn.readfile(theme_file, "\n")))
 
 return {
-  {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    opts = {
-      bigfile = { enabled = true },
-      statuscolumn = {
-        enabled = true,
-        folds = { open = true },
-      },
-    },
-  },
   { "ruanyl/vim-gh-line", event = { "BufReadPost", "BufNewFile" } },
   { "alvan/vim-closetag", ft = { "html", "liquid", "javascriptreact", "typescriptreact" } },
   { "christoomey/vim-tmux-navigator", event = "VeryLazy" },
