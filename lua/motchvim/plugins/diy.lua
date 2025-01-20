@@ -4,7 +4,7 @@ return {
     event = "VeryLazy",
     -- dev = true,
     config = function()
-      require("output_panel").setup()
+      require("output_panel").setup { max_buffer_size = 5000 }
     end,
     keys = {
       {
