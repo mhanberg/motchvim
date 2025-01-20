@@ -2,7 +2,7 @@ return {
   {
     "mhanberg/output-panel.nvim",
     event = "VeryLazy",
-    -- dev = true,
+    dev = true,
     config = function()
       require("output_panel").setup { max_buffer_size = 5000 }
     end,
@@ -17,7 +17,7 @@ return {
   },
   {
     "mhanberg/workspace-folder.nvim",
-    dir = "~/src/workspace-folders.nvim",
+    -- dir = "~/src/workspace-folders.nvim",
     lazy = false,
   },
   -- {
