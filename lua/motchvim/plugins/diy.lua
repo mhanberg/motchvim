@@ -16,7 +16,7 @@ return {
     },
   },
   {
-    "mhanberg/workspace-folder.nvim",
+    "mhanberg/workspace-folders.nvim",
     -- dir = "~/src/workspace-folders.nvim",
     lazy = false,
   },
