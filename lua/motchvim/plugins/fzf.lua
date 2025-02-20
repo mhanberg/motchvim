@@ -44,7 +44,13 @@ return {
       },
       -- { "<space>df", "<cmd>Files ~/src/<cr>", desc = "Find files in all projects" },
       { "gl", fzf("blines"), desc = "FZF Buffer Lines" },
-      { "<leader>a", fzf("live_grep"), desc = "Search in project" },
+      {
+        "<leader>a",
+        function()
+          fzf("live_grep") { hidden = true, no_ignore = true }
+        end,
+        desc = "Search in project",
+      },
       -- { "<space>a", ":GlobalProjectSearch<cr>", desc = "Search in all projects" },
     },
   },

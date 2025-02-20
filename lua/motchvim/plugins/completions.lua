@@ -11,7 +11,6 @@ return {
     opts = {
       keymap = { preset = "default" },
       fuzzy = {
-        use_typo_resistance = false,
         use_frecency = false,
         use_proximity = false,
       },

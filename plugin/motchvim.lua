@@ -3,7 +3,7 @@ local host = vim.fn.hostname()
 local theme_file = vim.fn.expand("~/.motchvim-theme")
 
 _G.motchvim = {
-  work = host == "alt-mhanberg",
+  work = host == "m.hanberg-GQJNV7J4QY",
   theme = vim.trim(table.concat(vim.fn.readfile(theme_file, "\n"))),
 }
 
