@@ -47,7 +47,7 @@ return {
       {
         "<leader>a",
         function()
-          fzf("live_grep") { hidden = true, no_ignore = true }
+          fzf("live_grep") { hidden = true, no_ignore = false }
         end,
         desc = "Search in project",
       },
