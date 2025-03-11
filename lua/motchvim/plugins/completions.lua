@@ -14,6 +14,17 @@ return {
         use_frecency = false,
         use_proximity = false,
       },
+      cmdline = {
+        enabled = true,
+        completion = {
+          menu = {
+            auto_show = true,
+          },
+          ghost_text = {
+            enabled = true,
+          },
+        },
+      },
       completion = {
         list = {
           selection = { auto_insert = true },
