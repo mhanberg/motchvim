@@ -5,7 +5,7 @@ return {
     dependencies = "rafamadriz/friendly-snippets",
 
     -- use a release tag to download pre-built binaries
-    version = "v0.*",
+    version = "v1.*",
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
