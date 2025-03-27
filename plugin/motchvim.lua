@@ -103,6 +103,7 @@ vim.g.markdown_syntax_conceal = 0
 
 local LSP = require("motchvim.lsp")
 
+LSP.setup("gh_actions_ls", {})
 LSP.setup("lua_ls", {
   settings = {
     Lua = {
@@ -133,15 +134,24 @@ LSP.setup("bashls", {})
 -- LSP.setup("sourcekit", {})
 
 LSP.setup("zls", {})
-LSP.setup("nil_ls", {
+LSP.setup("nixd", {
   settings = {
-    ["nil"] = {
+    nixd = {
       formatting = {
         command = { "alejandra" },
       },
     },
   },
 })
+-- LSP.setup("nil_ls", {
+--   settings = {
+--     ["nil"] = {
+--       formatting = {
+--         command = { "alejandra" },
+--       },
+--     },
+--   },
+-- })
 LSP.setup("gopls", {})
 LSP.setup("jsonls", {})
 LSP.setup("cssls", {
@@ -154,50 +164,50 @@ LSP.setup("cssls", {
   },
 })
 
--- local default_tw_config = LSP.default_config("tailwindcss")
--- LSP.setup(
---   "tailwindcss",
---   vim.tbl_deep_extend("force", default_tw_config, {
---     -- cmd = vim.lsp.rpc.connect("127.0.0.1", 9000),
---
---     init_options = {
---       userLanguages = {
---         elixir = "phoenix-heex",
---         eruby = "erb",
---         heex = "phoenix-heex",
---         surface = "phoenix-heex",
---       },
---     },
---     settings = {
---       tailwindCSS = {
---         validate = true,
---         lint = {
---           cssConflict = "warning",
---           invalidApply = "error",
---           invalidScreen = "error",
---           invalidVariant = "error",
---           invalidConfigPath = "error",
---           invalidTailwindDirective = "error",
---           recommendedVariantOrder = "warning",
---         },
---         classAttributes = {
---           "class",
---           "className",
---           "class:list",
---           "classList",
---           "ngClass",
---         },
---
---         experimental = {
---           classRegex = {
---             [[class:\s*"([^"]*)]],
---           },
---         },
---       },
---     },
---     filetypes = { "elixir", "eelixir", "html", "liquid", "heex", "surface", "css" },
---   })
--- )
+local default_tw_config = LSP.default_config("tailwindcss")
+LSP.setup(
+  "tailwindcss",
+  vim.tbl_deep_extend("force", default_tw_config, {
+    -- cmd = vim.lsp.rpc.connect("127.0.0.1", 9000),
+
+    init_options = {
+      userLanguages = {
+        elixir = "phoenix-heex",
+        eruby = "erb",
+        heex = "phoenix-heex",
+        surface = "phoenix-heex",
+      },
+    },
+    settings = {
+      tailwindCSS = {
+        validate = true,
+        lint = {
+          cssConflict = "warning",
+          invalidApply = "error",
+          invalidScreen = "error",
+          invalidVariant = "error",
+          invalidConfigPath = "error",
+          invalidTailwindDirective = "error",
+          recommendedVariantOrder = "warning",
+        },
+        classAttributes = {
+          "class",
+          "className",
+          "class:list",
+          "classList",
+          "ngClass",
+        },
+
+        experimental = {
+          classRegex = {
+            [[class:\s*"([^"]*)]],
+          },
+        },
+      },
+    },
+    filetypes = { "elixir", "eelixir", "html", "liquid", "heex", "surface", "css" },
+  })
+)
 LSP.setup("gopls", {
   settings = {
     gopls = {
