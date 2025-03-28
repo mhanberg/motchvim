@@ -10,6 +10,10 @@ _G.motchvim = {
 vim.treesitter.language.register("markdown", "octo")
 vim.filetype.add { filename = { Brewfile = "ruby" } }
 
+vim.diagnostic.config {
+  virtual_lines = true,
+}
+
 vim.cmd.colorscheme(motchvim.theme)
 require("motchvim.autocmds")
 
