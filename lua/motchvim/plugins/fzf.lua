@@ -20,6 +20,13 @@ return {
           width = 0.9,
           row = 0, -- window row position (0=top, 1=bottom)
         },
+        previewers = {
+          builtin = {
+            treesitter = {
+              context = false,
+            },
+          },
+        },
         actions = {
           files = {
             ["default"] = actions.file_edit_or_qf,
