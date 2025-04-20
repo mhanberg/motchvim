@@ -1,6 +1,6 @@
 local function new_sync(options, type)
   local zk = require("zk")
-  options = vim.tbl_extend("force", { extra = { type = item }, dir = "./syncs/" }, options or {})
+  options = vim.tbl_extend("force", { extra = { type = type }, dir = "./syncs/" }, options or {})
 
   zk.new(options)
 end

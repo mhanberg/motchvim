@@ -1,12 +1,30 @@
 vim.cmd([[setlocal spell]])
 vim.cmd([[setlocal linebreak]])
+
 if require("zk.util").notebook_root(vim.fn.expand("%:p")) ~= nil then
   local zk = require("zk")
+  local ansi_codes = require("fzf-lua").utils.ansi_codes
+
   local opts = function(tbl)
     return vim.tbl_extend("keep", { buffer = 0, silent = true }, tbl)
   end
 
-  vim.keymap.set("n", "<space>zf", "<Cmd>ZkNotes { sort = {'modified'} }<CR>", opts { desc = "Find notes" })
+  vim.keymap.set("n", "<space>zf", function()
+    zk.edit({ sort = { "modified" } }, {
+      title = "Zk Notes",
+      fzf_lua = {
+        fzf_opts = {
+          ["--header"] = ansi_codes.blue("CTRL-E: create a note with the query as title"),
+        },
+        actions = {
+          ["ctrl-e"] = function()
+            local query = require("fzf-lua").config.__resume_data.last_query
+            require("zk").new { title = query }
+          end,
+        },
+      },
+    })
+  end, opts { desc = "Find notes" })
   vim.keymap.set("n", "<space>zt", vim.cmd.ZkTags, opts { desc = "Find tags" })
   vim.keymap.set("n", "<space>zl", vim.cmd.ZkLinks, opts { desc = "Find links in note" })
   vim.keymap.set("n", "<space>zb", vim.cmd.ZkBacklinks, opts { desc = "Find backlinks in note" })
