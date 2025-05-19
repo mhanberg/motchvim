@@ -1,7 +1,7 @@
 vim.cmd([[setlocal spell]])
 vim.cmd([[setlocal linebreak]])
 
-if require("zk.util").notebook_root(vim.fn.expand("%:p")) ~= nil then
+if vim.fs.root(0, ".zk") ~= nil then
   local zk = require("zk")
   local ansi_codes = require("fzf-lua").utils.ansi_codes
 
