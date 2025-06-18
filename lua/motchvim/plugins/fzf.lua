@@ -20,6 +20,12 @@ return {
           width = 0.9,
           row = 0, -- window row position (0=top, 1=bottom)
         },
+        keymap = {
+          fzf = {
+            ["ctrl-f"] = nil,
+            ["ctrl-b"] = nil,
+          },
+        },
         previewers = {
           builtin = {
             treesitter = {
