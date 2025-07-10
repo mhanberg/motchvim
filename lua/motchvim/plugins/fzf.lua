@@ -60,7 +60,11 @@ return {
       {
         "<leader>a",
         function()
-          fzf("live_grep") { hidden = true, no_ignore = false }
+          fzf("live_grep") {
+            rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden --ignore -g '!.git' -e",
+            hidden = true,
+            no_ignore = false,
+          }
         end,
         desc = "Search in project",
       },

@@ -4,6 +4,9 @@ return {
     priority = 1000,
     lazy = false,
     opts = {
+      image = {
+        enabled = true,
+      },
       bigfile = {
         notify = true,
         enabled = true,
