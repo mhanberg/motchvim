@@ -9,7 +9,7 @@
 (sigil
   (sigil_name) @_sigil_name
   (quoted_content) @injection.content
- (#eq? @_sigil_name "Q")
+ (#eq? @_sigil_name "SQL")
  (#set! injection.language "sql"))
 
 (sigil
