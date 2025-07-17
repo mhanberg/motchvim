@@ -15,11 +15,11 @@ return {
       },
     },
   },
-  {
-    "mhanberg/workspace-folders.nvim",
-    -- dir = "~/src/workspace-folders.nvim",
-    lazy = false,
-  },
+  -- {
+  --   "mhanberg/workspace-folders.nvim",
+  --   -- dir = "~/src/workspace-folders.nvim",
+  --   lazy = false,
+  -- },
   -- {
   --   "mhanberg/control-panel.nvim",
   --   dir = "~/src/control-panel.nvim",
