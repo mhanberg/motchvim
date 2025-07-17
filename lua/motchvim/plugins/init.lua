@@ -272,7 +272,12 @@ return {
   {
     "MagicDuck/grug-far.nvim",
     config = function()
-      require("grug-far").setup {}
+      require("grug-far").setup {
+        prefills = {
+          filesFilter = "!.git/",
+          flags = "--hidden",
+        },
+      }
     end,
     cmd = {
       "GrugFar",
@@ -282,6 +287,13 @@ return {
         "<space>fr",
         ":GrugFar<cr>",
         desc = "GrugFar",
+      },
+      {
+        "<space>fa",
+        function()
+          require("grug-far").open { prefills = { paths = vim.fn.expand("%") } }
+        end,
+        desc = "GrugFar in current file",
       },
     },
   },
