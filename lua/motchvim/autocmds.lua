@@ -43,8 +43,12 @@ autocmd("LspAttach", {
       require("conform").format { async = false, lsp_fallback = true, id = client.id }
     end, map_opts { desc = "Format file" })
     vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, map_opts { desc = "Open diagnostic window" })
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, map_opts { desc = "Prev. diagnostic" })
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, map_opts { desc = "Next diagnostic" })
+    vim.keymap.set("n", "[d", function()
+      vim.diagnostic.jump { count = -1 }
+    end, map_opts { desc = "Prev. diagnostic" })
+    vim.keymap.set("n", "]d", function()
+      vim.diagnostic.jump { count = 1 }
+    end, map_opts { desc = "Next diagnostic" })
 
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, map_opts { desc = "Go to definition" })
     vim.keymap.set("n", "K", vim.lsp.buf.hover, map_opts { desc = "Show hover documentation" })
@@ -52,8 +56,8 @@ autocmd("LspAttach", {
     vim.keymap.set("n", "<leader>cr", function()
       vim.lsp.buf.rename()
     end, { desc = "Rename LSP symbol" })
-    vim.keymap.set("n", "gr", fzf("lsp_references"), map_opts { desc = "Find references" })
-    vim.keymap.set("n", "gi", fzf("lsp_implementations"), map_opts { desc = "Find implementations" })
+    vim.keymap.set("n", "grr", fzf("lsp_references"), map_opts { desc = "Find references" })
+    vim.keymap.set("n", "gri", fzf("lsp_implementations"), map_opts { desc = "Find implementations" })
     vim.keymap.set("n", "<leader>ss", fzf("lsp_document_symbols"), map_opts { desc = "Document Symbols" })
     vim.keymap.set("n", "<leader>sS", fzf("lsp_workspace_symbols"), map_opts { desc = "Workspace Symbols" })
     vim.keymap.set("n", "<leader>ca", fzf("lsp_code_actions", {}), map_opts { desc = "Code Actions" })
