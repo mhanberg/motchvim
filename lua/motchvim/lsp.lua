@@ -32,7 +32,7 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })
 
-M.capabilities = require('blink.cmp').get_lsp_capabilities()
+M.capabilities = require("blink.cmp").get_lsp_capabilities()
 
 M.setup = function(name, opts)
   if not has_run[name] then
@@ -40,8 +40,8 @@ M.setup = function(name, opts)
 
     local lspconfig = require("lspconfig")
     lspconfig[name].setup(vim.tbl_extend("force", {
-      log_level = vim.lsp.protocol.MessageType.Log,
-      message_level = vim.lsp.protocol.MessageType.Log,
+      log_level = vim.lsp.protocol.MessageType.Warning,
+      message_level = vim.lsp.protocol.MessageType.Warning,
       capabilities = M.capabilities,
     }, opts))
   end
@@ -78,6 +78,6 @@ M.default_config = function(name)
   return require("lspconfig.configs." .. name).default_config
 end
 
-vim.lsp.set_log_level(2)
+vim.lsp.set_log_level(3)
 
 return M
