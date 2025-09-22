@@ -30,3 +30,13 @@
  (#eq? @_style "style")
  (#set! injection.language "css"))
 
+(call target:
+      (dot
+        left: ((alias) @_alias)
+        right: ((identifier) @_identifier))
+      (arguments (string (quoted_content) @injection.content))
+
+       (#eq? @_alias "Pythonx")
+       (#eq? @_identifier "eval")
+       (#set! injection.language "python"))
+
