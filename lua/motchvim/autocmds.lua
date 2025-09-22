@@ -43,6 +43,9 @@ autocmd("LspAttach", {
       require("conform").format { async = false, lsp_fallback = true, id = client.id }
     end, map_opts { desc = "Format file" })
     vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, map_opts { desc = "Open diagnostic window" })
+    vim.keymap.set("n", "K", function()
+      vim.lsp.buf.hover { border = "rounded" }
+    end, map_opts { desc = "Hover" })
     vim.keymap.set("n", "[d", function()
       vim.diagnostic.jump { count = -1 }
     end, map_opts { desc = "Prev. diagnostic" })

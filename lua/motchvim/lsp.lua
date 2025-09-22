@@ -28,34 +28,17 @@ M.navic = function()
   end
 end
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
-
 M.capabilities = require("blink.cmp").get_lsp_capabilities()
 
 M.setup = function(name, opts)
   if not has_run[name] then
     has_run[name] = true
 
-    local lspconfig = require("lspconfig")
-    lspconfig[name].setup(vim.tbl_extend("force", {
+    vim.lsp.config[name] = vim.tbl_extend("force", {
       log_level = vim.lsp.protocol.MessageType.Warning,
       message_level = vim.lsp.protocol.MessageType.Warning,
       capabilities = M.capabilities,
-    }, opts))
-  end
-end
-
-local convert_lsp_log_level_to_neovim_log_level = function(lsp_log_level)
-  if lsp_log_level == 1 then
-    return 4
-  elseif lsp_log_level == 2 then
-    return 3
-  elseif lsp_log_level == 3 then
-    return 2
-  elseif lsp_log_level == 4 then
-    return 1
+    }, opts)
   end
 end
 
