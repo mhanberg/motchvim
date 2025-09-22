@@ -12,17 +12,6 @@ if vim.fs.root(0, ".zk") ~= nil then
   vim.keymap.set("n", "<space>zf", function()
     zk.edit({ sort = { "modified" } }, {
       title = "Zk Notes",
-      fzf_lua = {
-        fzf_opts = {
-          ["--header"] = ansi_codes.blue("CTRL-E: create a note with the query as title"),
-        },
-        actions = {
-          ["ctrl-e"] = function()
-            local query = require("fzf-lua").config.__resume_data.last_query
-            require("zk").new { title = query }
-          end,
-        },
-      },
     })
   end, opts { desc = "Find notes" })
   vim.keymap.set("n", "<space>zt", vim.cmd.ZkTags, opts { desc = "Find tags" })
