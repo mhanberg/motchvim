@@ -107,7 +107,11 @@ vim.g.markdown_syntax_conceal = 0
 
 local LSP = require("motchvim.lsp")
 
-LSP.setup("gh_actions_ls", {})
+LSP.setup("gh_actions_ls", {
+  init_options = {
+    sessionToken = vim.env.GITHUB_TOKEN,
+  },
+})
 LSP.setup("lua_ls", {
   settings = {
     Lua = {
