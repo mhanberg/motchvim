@@ -2,7 +2,10 @@ return {
   {
     "saghen/blink.cmp",
     -- optional: provides snippets for the snippet source
-    dependencies = "rafamadriz/friendly-snippets",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+      "Kaiser-Yang/blink-cmp-git",
+    },
 
     -- use a release tag to download pre-built binaries
     version = "v1.*",
@@ -11,7 +14,7 @@ return {
     opts = {
       keymap = { preset = "default" },
       fuzzy = {
-        use_frecency = false,
+        frecency = { enabled = false },
         use_proximity = false,
       },
       cmdline = {
@@ -46,13 +49,22 @@ return {
       },
       signature = { enabled = true },
       sources = {
-        default = { "lsp", "path" },
+        default = { "git", "lsp", "path" },
         min_keyword_length = function(ctx)
           if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
             return 2
           end
           return 0
         end,
+        providers = {
+          git = {
+            module = "blink-cmp-git",
+            name = "Git",
+            opts = {
+              -- options for the blink-cmp-git
+            },
+          },
+        },
       },
     },
     opts_extend = { "sources.default" },
