@@ -10,6 +10,11 @@ return {
     opts = {},
     config = function()
       require("conform").setup {
+        formatters = {
+          scadformat = {
+            command = "scadformat",
+          },
+        },
         formatters_by_ft = {
           lua = { "stylua" },
           sh = { "shfmt" },
@@ -19,6 +24,7 @@ return {
           nix = { "nixpkgs_fmt" },
           -- Conform will run multiple formatters sequentially
           swift = { "swift_format" },
+          openscad = { "scadformat" },
         },
       }
     end,

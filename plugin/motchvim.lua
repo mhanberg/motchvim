@@ -112,6 +112,7 @@ LSP.setup("gh_actions_ls", {
     sessionToken = vim.env.GITHUB_TOKEN,
   },
 })
+LSP.setup("openscad_lsp", {})
 LSP.setup("lua_ls", {
   settings = {
     Lua = {
