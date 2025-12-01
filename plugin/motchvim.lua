@@ -111,18 +111,6 @@ vim.lsp.config("*", {
   capabilities = require("blink.cmp").get_lsp_capabilities(),
 })
 
-vim.lsp.config["rust-analyzer"] = {
-  settings = {
-    ["rust-analyzer"] = {
-      files = {
-        exclude = {
-          ".direnv",
-        },
-      },
-    },
-  },
-}
-
 vim.lsp.enable {
   "bashls",
   "clangd",
