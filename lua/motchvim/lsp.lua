@@ -28,20 +28,6 @@ M.navic = function()
   end
 end
 
-M.capabilities = require("blink.cmp").get_lsp_capabilities()
-
-M.setup = function(name, opts)
-  if not has_run[name] then
-    has_run[name] = true
-
-    vim.lsp.config[name] = vim.tbl_extend("force", {
-      log_level = vim.lsp.protocol.MessageType.Warning,
-      message_level = vim.lsp.protocol.MessageType.Warning,
-      capabilities = M.capabilities,
-    }, opts)
-  end
-end
-
 local levels = {
   "ERROR",
   "WARN",

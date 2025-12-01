@@ -105,122 +105,37 @@ vim.g.zig_fmt_autosave = 0
 
 vim.g.markdown_syntax_conceal = 0
 
-local LSP = require("motchvim.lsp")
-
-LSP.setup("gh_actions_ls", {
-  init_options = {
-    sessionToken = vim.env.GITHUB_TOKEN,
-  },
+vim.lsp.config("*", {
+  log_level = vim.lsp.protocol.MessageType.Warning,
+  message_level = vim.lsp.protocol.MessageType.Warning,
+  capabilities = require("blink.cmp").get_lsp_capabilities(),
 })
-LSP.setup("openscad_lsp", {})
-LSP.setup("lua_ls", {
+
+vim.lsp.config["rust-analyzer"] = {
   settings = {
-    Lua = {
-      hint = {
-        enable = true,
-        arrayIndex = "Disable",
-      },
-      format = {
-        enable = false,
-      },
-      workspace = {
-        library = {
-          "nvim-test/lua",
-          "${3rd}/busted/library",
-          "${3rd}/luassert/library",
+    ["rust-analyzer"] = {
+      files = {
+        exclude = {
+          ".direnv",
         },
       },
     },
   },
-})
--- LSP.setup("rust_analyzer", {})
-LSP.setup("clangd", {})
--- LSP.setup("solargraph", {})
-LSP.setup("omnisharp", {})
-LSP.setup("ts_ls", {})
--- LSP.setup("vimls", {})
-LSP.setup("bashls", {})
--- LSP.setup("sourcekit", {})
+}
 
-LSP.setup("zls", {})
-LSP.setup("nixd", {
-  settings = {
-    nixd = {
-      formatting = {
-        command = { "alejandra" },
-      },
-    },
-  },
-})
--- LSP.setup("nil_ls", {
---   settings = {
---     ["nil"] = {
---       formatting = {
---         command = { "alejandra" },
---       },
---     },
---   },
--- })
-LSP.setup("gopls", {})
-LSP.setup("jsonls", {})
-LSP.setup("cssls", {
-  settings = {
-    css = {
-      lint = {
-        unknownAtRules = "ignore",
-      },
-    },
-  },
-})
-
-local default_tw_config = LSP.default_config("tailwindcss")
-LSP.setup(
+vim.lsp.enable {
+  "bashls",
+  "clangd",
+  "cssls",
+  "gh_actions_ls",
+  "gopls",
+  "gopls",
+  "jsonls",
+  "lua_ls",
+  "nixd",
+  "omnisharp",
   "tailwindcss",
-  vim.tbl_deep_extend("force", default_tw_config, {
-    -- cmd = vim.lsp.rpc.connect("127.0.0.1", 9000),
-
-    init_options = {
-      userLanguages = {
-        elixir = "phoenix-heex",
-        eruby = "erb",
-        heex = "phoenix-heex",
-        surface = "phoenix-heex",
-      },
-    },
-    settings = {
-      tailwindCSS = {
-        validate = true,
-        lint = {
-          cssConflict = "warning",
-          invalidApply = "error",
-          invalidScreen = "error",
-          invalidVariant = "error",
-          invalidConfigPath = "error",
-          invalidTailwindDirective = "error",
-          recommendedVariantOrder = "warning",
-        },
-        classAttributes = {
-          "class",
-          "className",
-          "class:list",
-          "classList",
-          "ngClass",
-        },
-
-        experimental = {
-          classRegex = {
-            [[class:\s*"([^"]*)]],
-          },
-        },
-      },
-    },
-    filetypes = { "elixir", "eelixir", "html", "liquid", "heex", "surface", "css" },
-  })
-)
-LSP.setup("gopls", {
-  settings = {
-    gopls = {
-      codelenses = { test = true },
-    },
-  },
-})
+  "ts_ls",
+  "zls",
+  "rust_analyzer",
+}
