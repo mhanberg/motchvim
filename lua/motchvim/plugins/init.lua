@@ -5,6 +5,7 @@ return {
   { "ruanyl/vim-gh-line", event = { "BufReadPost", "BufNewFile" } },
   { "alvan/vim-closetag", ft = { "html", "liquid", "javascriptreact", "typescriptreact" } },
   { "christoomey/vim-tmux-navigator", event = "VeryLazy" },
+  "lewis6991/spaceless.nvim",
   {
     "stevearc/conform.nvim",
     opts = {},
@@ -181,20 +182,6 @@ return {
       }
     end,
   },
-  {
-    "pwntester/octo.nvim",
-    cmd = { "Octo" },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      require("octo").setup {
-        picker = "fzf-lua",
-      }
-    end,
-  },
   { "junegunn/vim-easy-align", event = { "BufReadPost", "BufNewFile" } },
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -302,10 +289,5 @@ return {
         desc = "GrugFar in current file",
       },
     },
-  },
-  {
-    "mrcjkb/rustaceanvim",
-    version = "^4", -- Recommended
-    lazy = false, -- This plugin is already lazy
   },
 }
