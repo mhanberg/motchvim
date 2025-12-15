@@ -62,7 +62,12 @@ autocmd("LspAttach", {
     vim.keymap.set("n", "grr", fzf("lsp_references"), map_opts { desc = "Find references" })
     vim.keymap.set("n", "gri", fzf("lsp_implementations"), map_opts { desc = "Find implementations" })
     vim.keymap.set("n", "<leader>ss", fzf("lsp_document_symbols"), map_opts { desc = "Document Symbols" })
-    vim.keymap.set("n", "<leader>sS", fzf("lsp_workspace_symbols"), map_opts { desc = "Workspace Symbols" })
+    vim.keymap.set(
+      "n",
+      "<leader>sS",
+      fzf("lsp_live_workspace_symbols"),
+      map_opts { desc = "Workspace Symbols" }
+    )
     vim.keymap.set("n", "<leader>ca", fzf("lsp_code_actions", {}), map_opts { desc = "Code Actions" })
     vim.keymap.set(
       "n",

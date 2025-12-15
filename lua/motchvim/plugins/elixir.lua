@@ -6,11 +6,12 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     config = function()
       local elixir = require("elixir")
+      local use_expert = vim.env.USE_EXPERT ~= "0"
       local nextls_opts
-      if vim.env.NEXTLS_LOCAL == "1" then
+      if type(vim.env.NEXTLS_LOCAL) == "string" then
         nextls_opts = {
-          enable = true,
-          port = 9000,
+          enable = not use_expert,
+          port = vim.fn.str2nr(vim.env.NEXTLS_LOCAL),
           spitfire = false,
           init_options = {
             experimental = {
@@ -22,7 +23,7 @@ return {
         }
       else
         nextls_opts = {
-          enable = true,
+          enable = not use_expert,
           spitfire = false,
           -- cmd = "/home/mitchell/src/next-ls/burrito_out/next_ls_linux_amd64",
           init_options = {
@@ -33,6 +34,10 @@ return {
             },
           },
         }
+      end
+
+      if use_expert then
+        vim.lsp.enable("expert")
       end
 
       elixir.setup {
