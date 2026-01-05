@@ -1,7 +1,5 @@
 M = {}
 
-local has_run = {}
-
 local signs = {
   Error = "✘", -- x000f015a
   Warn = "󰀪", -- x000f002a
