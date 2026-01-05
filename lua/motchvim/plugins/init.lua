@@ -59,7 +59,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    event = { "BufReadPost", "BufNewFile" },
+    lazy = false,
   },
   { "tpope/vim-eunuch", event = { "BufReadPost", "BufNewFile" } },
   { "tpope/vim-fugitive", event = "VeryLazy" },
