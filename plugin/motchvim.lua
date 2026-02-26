@@ -126,4 +126,6 @@ vim.lsp.enable {
   "ts_ls",
   "zls",
   "rust_analyzer",
+  "yamlls",
+  -- "rumdl",
 }

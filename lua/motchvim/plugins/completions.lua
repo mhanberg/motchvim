@@ -49,7 +49,7 @@ return {
       },
       signature = { enabled = true },
       sources = {
-        default = { "git", "lsp", "path" },
+        default = { "git", "lsp", "path", "snippets" },
         min_keyword_length = function(ctx)
           if ctx.mode == "cmdline" and string.find(ctx.line, " ") == nil then
             return 2
@@ -57,6 +57,14 @@ return {
           return 0
         end,
         providers = {
+          snippets = {
+            opts = {
+
+              extended_filetypes = {
+                markdown = { "html" },
+              },
+            },
+          },
           git = {
             module = "blink-cmp-git",
             name = "Git",

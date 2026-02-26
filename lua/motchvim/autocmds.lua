@@ -68,7 +68,12 @@ autocmd("LspAttach", {
       fzf("lsp_live_workspace_symbols"),
       map_opts { desc = "Workspace Symbols" }
     )
-    vim.keymap.set("n", "<leader>ca", fzf("lsp_code_actions", {}), map_opts { desc = "Code Actions" })
+    vim.keymap.set(
+      { "n", "v" },
+      "<leader>ca",
+      fzf("lsp_code_actions", {}),
+      map_opts { desc = "Code Actions" }
+    )
     vim.keymap.set(
       "n",
       "<leader>sd",
@@ -102,7 +107,7 @@ autocmd("LspAttach", {
       )
     end
 
-    if client and client.supports_method("textDocument/codeLens") then
+    if client and client:supports_method("textDocument/codeLens") then
       vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
         buffer = bufnr,
         callback = function()
@@ -112,11 +117,11 @@ autocmd("LspAttach", {
       vim.lsp.codelens.refresh { bufnr = bufnr }
     end
 
-    if client and client.supports_method("textDocument/documentSymbol") then
+    if client and client:supports_method("textDocument/documentSymbol") then
       require("nvim-navic").attach(client, bufnr)
     end
 
-    if client and client.supports_method("textDocument/inlayHint") then
+    if client and client:supports_method("textDocument/inlayHint") then
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
     end
   end,
@@ -134,27 +139,6 @@ autocmd("FileType", {
       settings = {},
       capabilities = require("motchvim.lsp").capabilities,
       on_attach = require("motchvim.lsp").on_attach,
-    }
-  end,
-})
-
-autocmd("FileType", {
-  group = random,
-  pattern = "yaml",
-  callback = function()
-    -- vim.bo.commentstring = "# %s"
-    vim.lsp.start {
-      name = "YAML Language Server",
-      cmd = { "yaml-language-server", "--stdio" },
-      root_dir = vim.fs.dirname(vim.fs.find(".git", { upward = true })[1]),
-      settings = {
-        redhat = { telemetry = { enabled = false } },
-        yaml = {
-          keyOrdering = false,
-          schemaStore = { enable = true },
-        },
-      },
-      capabilities = require("motchvim.lsp").capabilities,
     }
   end,
 })
