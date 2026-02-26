@@ -113,6 +113,7 @@ vim.lsp.config("*", {
 
 vim.lsp.enable {
   "bashls",
+  "helm_ls",
   "clangd",
   "cssls",
   "gh_actions_ls",
