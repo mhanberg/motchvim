@@ -112,6 +112,7 @@ vim.lsp.config("*", {
 })
 
 vim.lsp.enable {
+  "expert",
   "bashls",
   "helm_ls",
   "clangd",
