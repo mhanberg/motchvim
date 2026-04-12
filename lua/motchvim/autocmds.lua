@@ -3,6 +3,14 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local random = augroup("random", { clear = true })
 
+autocmd("FileType", {
+  group = random,
+  pattern = require("nvim-treesitter").get_installed(),
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
+
 autocmd("VimResized", { group = random, pattern = "*", command = "wincmd =" })
 autocmd("GUIEnter", {
   group = random,

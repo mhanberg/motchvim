@@ -31,6 +31,7 @@ opt.scrolloff = 4
 opt.laststatus = 3
 opt.winbar = [[%m %t %{%v:lua.require'motchvim.lsp'.navic()%}]]
 
+vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 opt.foldcolumn = "1"
 opt.foldlevelstart = 99
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
