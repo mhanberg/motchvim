@@ -7,7 +7,6 @@ else
   cmd = { "expert", "--stdio" }
 end
 
-vim.print(cmd)
 return {
   cmd = cmd,
   filetypes = { "elixir" },
