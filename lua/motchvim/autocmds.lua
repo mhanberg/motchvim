@@ -111,10 +111,10 @@ autocmd("LspAttach", {
       vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
         buffer = bufnr,
         callback = function()
-          vim.lsp.codelens.refresh { bufnr = bufnr }
+          vim.lsp.codelens.enable(true, { bufnr = bufnr })
         end,
       })
-      vim.lsp.codelens.refresh { bufnr = bufnr }
+      vim.lsp.codelens.enable(true, { bufnr = bufnr })
     end
 
     if client and client:supports_method("textDocument/documentSymbol") then
@@ -123,46 +123,6 @@ autocmd("LspAttach", {
 
     if client and client:supports_method("textDocument/inlayHint") then
       vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
-    end
-  end,
-})
-
-autocmd("FileType", {
-  group = random,
-  pattern = "raml",
-  callback = function()
-    vim.bo.commentstring = "# %s"
-    vim.lsp.start {
-      name = "ALS",
-      cmd = { "als", "--systemStream" },
-      root_dir = vim.fs.dirname(vim.fs.find(".git", { upward = true })[1]),
-      settings = {},
-      capabilities = require("motchvim.lsp").capabilities,
-      on_attach = require("motchvim.lsp").on_attach,
-    }
-  end,
-})
-
-autocmd("FileType", {
-  group = random,
-  pattern = "raml",
-  callback = function()
-    local jobid = vim.fn.jobstart("als --port 9000 --listen")
-
-    if jobid > 0 then
-      vim.wait(1000, function()
-        return true
-      end)
-      vim.lsp.start {
-        name = "ALS",
-        cmd = vim.lsp.rpc.connect("127.0.0.1", 9000),
-        root_dir = vim.fs.dirname(vim.fs.find(".git", { upward = true })[1]),
-        settings = {},
-        capabilities = require("motchvim.lsp").capabilities,
-        on_attach = require("motchvim.lsp").on_attach,
-      }
-    else
-      vim.notify("Couldn't start ALS", vim.log.levels.WARN)
     end
   end,
 })

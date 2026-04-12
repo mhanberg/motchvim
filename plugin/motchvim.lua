@@ -89,7 +89,7 @@ vim.cmd([[command! W w]])
 vim.cmd([[command! Wq wq]])
 
 vim.api.nvim_create_user_command("LspLogDelete", function()
-  vim.fn.delete(vim.lsp.get_log_path())
+  vim.fn.delete(vim.lsp.log.get_filename())
 end, { desc = "Deletes the LSP log file. Useful for when it gets too big" })
 vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Go to the previous item in the quickfix list." })
 vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Go to the next item in the quickfix list." })
