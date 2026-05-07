@@ -1,13 +1,17 @@
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
+local ts = require("nvim-treesitter")
 
 local random = augroup("random", { clear = true })
 
 autocmd("FileType", {
   group = random,
-  pattern = require("nvim-treesitter").get_installed(),
-  callback = function()
-    vim.treesitter.start()
+  pattern = "*",
+  callback = function(args)
+    if vim.tbl_contains(ts.get_available(), args.match) then
+      require("nvim-treesitter").install(args.match)
+      vim.treesitter.start()
+    end
   end,
 })
 
