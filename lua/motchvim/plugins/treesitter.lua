@@ -5,7 +5,7 @@ return {
     branch = "main",
     build = ":TSUpdate",
     config = function(_, opts)
-      require("nvim-treesitter").install { "stable" }
+      -- require("nvim-treesitter").install { "stable" }
     end,
   },
   {
