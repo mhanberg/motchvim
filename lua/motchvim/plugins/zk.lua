@@ -42,4 +42,9 @@ return {
       "zk-org/zk-nvim",
     },
   },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" }, -- if you use the mini.nvim suite
+    opts = {},
+  },
 }
