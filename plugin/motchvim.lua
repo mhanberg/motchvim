@@ -16,6 +16,7 @@ vim.diagnostic.config {
 
 vim.cmd.colorscheme(motchvim.theme)
 require("motchvim.autocmds")
+require("motchvim.mermaid").setup { image = { enabled = true } }
 
 local opt = vim.opt
 
